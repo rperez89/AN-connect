@@ -1,7 +1,5 @@
 import { Address } from '@graphprotocol/graph-ts'
-import {
-  getTokenWrapperEntity,
-} from './TokenWrapper'
+import { getTokenWrapperEntity } from './TokenWrapper'
 
 /*
  * Called when an app proxy is detected.
@@ -13,10 +11,10 @@ import {
  * which must have the same name.
  */
 export function getTemplateForApp(appId: string): string | null {
+  const TOKEN_WRAPPER_OPEN =
+    '0x550fca0bfe67deacb87df417a4b4758db3152410deaad1357183d293251bb9a6'
 
-  const TOKEN_WRAPPER_OPEN = '0x550fca0bfe67deacb87df417a4b4758db3152410deaad1357183d293251bb9a6'
-
- if (appId == TOKEN_WRAPPER_OPEN) {
+  if (appId == TOKEN_WRAPPER_OPEN) {
     return 'TokenWrapper'
   } else {
     return null

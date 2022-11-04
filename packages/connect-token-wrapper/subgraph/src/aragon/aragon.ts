@@ -24,7 +24,6 @@ export function processApp(appAddress: Address, appId: string): void {
   }
 }
 
-
 function _isRegistered(address: Address, type: string): boolean {
   const aragon = _getAragonInfo()
 
