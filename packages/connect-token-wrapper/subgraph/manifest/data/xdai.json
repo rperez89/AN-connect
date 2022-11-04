@@ -1,0 +1,17 @@
+{
+  "network": "xdai",
+  "dataSources": {
+    "Organizations": [
+      {
+        "name": "ANDao",
+        "address": "0x6C727F89359cF1D45dc5a96610937Ea34DadC957",
+        "startBlock": "19861000"
+      }
+    ],
+    "OrganizationFactories": [],
+    "OrganizationTemplates": [],
+    "LegacyOrganizationTemplates": [],
+    "TokenFactories": [],
+    "Tokens": []
+  }
+}
