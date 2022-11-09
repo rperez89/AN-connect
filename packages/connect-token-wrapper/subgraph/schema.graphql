@@ -1,6 +1,5 @@
 type TokenWrapper @entity {
   id: ID!
-  address: Bytes!
   token: Token!
   orgAddress: Bytes!
 }

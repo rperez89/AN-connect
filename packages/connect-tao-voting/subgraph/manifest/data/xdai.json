@@ -1,0 +1,17 @@
+{
+  "network": "xdai",
+  "dataSources": {
+    "Organizations": [
+      {
+        "name": "AN Testing Dao",
+        "address": "0xa30c833cb5da03259c7dfbe6a3d0281d9f3b9ea4",
+        "startBlock": "14861000"
+      }
+    ],
+    "OrganizationFactories": [],
+    "OrganizationTemplates": [],
+    "LegacyOrganizationTemplates": [],
+    "TokenFactories": [],
+    "Tokens": []
+  }
+}

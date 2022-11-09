@@ -1,5 +1,4 @@
-import { BigInt, Address, log, store } from '@graphprotocol/graph-ts'
-
+import { BigInt, Address, store } from '@graphprotocol/graph-ts'
 import {
   Token as TokenEntity,
   TokenHolder as TokenHolderEntity,
@@ -37,8 +36,6 @@ export function getTokenWrapperEntity(address: Address): TokenWrapperEntity {
     tokenWrapperEntity = new TokenWrapperEntity(tokenWrapperId)
 
     const tokenWrapperContract = TokenWrapperContract.bind(address)
-
-    tokenWrapperEntity.address = address
     tokenWrapperEntity.orgAddress = tokenWrapperContract.kernel()
 
     const depositedTokenAddress = tokenWrapperContract.depositedToken()
@@ -82,8 +79,11 @@ export function handleDeposit(event: DepositEvent): void {
     tokenHolder.address = event.params.entity
     tokenHolder.token = event.address.toHexString()
     tokenHolder.balance = BigInt.fromI32(0)
+    tokenHolder.tokenWrapper = event.address.toHexString()
   }
+
   tokenHolder.balance = tokenHolder.balance.plus(event.params.amount)
+
   tokenHolder.save()
 }
 
@@ -99,6 +99,7 @@ export function handleWithdrawal(event: WithdrawalEvent): void {
     tokenHolder.address = event.params.entity
     tokenHolder.token = event.address.toHexString()
     tokenHolder.balance = BigInt.fromI32(0)
+    tokenHolder.tokenWrapper = event.address.toHexString()
   }
   tokenHolder.balance = tokenHolder.balance.minus(event.params.amount)
 
