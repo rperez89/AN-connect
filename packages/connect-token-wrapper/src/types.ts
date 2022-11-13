@@ -17,6 +17,7 @@ export interface WrappedTokenData {
   decimals: string
   tokenId: string
   tokenWrapperId: string
+  totalSupply: string
 }
 
 export interface TokenHolderData {

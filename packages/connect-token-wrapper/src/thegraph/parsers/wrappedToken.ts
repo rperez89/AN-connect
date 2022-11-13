@@ -4,18 +4,20 @@ import WrappedToken from '../../models/WrappedToken'
 import { WrappedTokenData } from '../../types'
 
 function buildWrappedToken(wrappedToken: any, connector: any): WrappedToken {
-  const { id, name, symbol, decimals, token, tokenWrapper } = wrappedToken
+  const { id, name, symbol, decimals, token, tokenWrapper, totalSupply } =
+    wrappedToken
 
-  const castVoteData: WrappedTokenData = {
+  const wrappedTokenData: WrappedTokenData = {
     id,
     name,
     symbol,
     decimals,
     tokenId: token.id,
     tokenWrapperId: tokenWrapper.id,
+    totalSupply: totalSupply,
   }
 
-  return new WrappedToken(castVoteData, connector)
+  return new WrappedToken(wrappedTokenData, connector)
 }
 
 export function parseWrappedToken(

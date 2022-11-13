@@ -135,14 +135,14 @@ export default class TokenWrapperConnectorTheGraph
   }
 
   onTokenHolders(
-    tokenWrapper: string,
+    token: string,
     first: number,
     skip: number,
     callback: SubscriptionCallback<TokenHolder[]>
   ): SubscriptionHandler {
     return this.#gql.subscribeToQueryWithParser<TokenHolder[]>(
       queries.ALL_TOKEN_HOLDERS('subscription'),
-      { tokenWrapper, first, skip },
+      { token, first, skip },
       callback,
       (result: QueryResult) => parseTokenHolders(result, this)
     )

@@ -11,6 +11,7 @@ export default class WrappedToken {
   readonly decimals: string
   readonly tokenId: string
   readonly tokenWrapperId: string
+  readonly totalSupply: string
 
   constructor(
     data: WrappedTokenData,
@@ -24,5 +25,6 @@ export default class WrappedToken {
     this.decimals = data.decimals
     this.tokenId = data.tokenId
     this.tokenWrapperId = data.tokenWrapperId
+    this.totalSupply = data.totalSupply
   }
 }

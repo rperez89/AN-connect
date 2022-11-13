@@ -51,6 +51,7 @@ export function getTokenWrapperEntity(address: Address): TokenWrapperEntity {
       const token = TokenEntity.load(depositedTokenAddress.toHexString())
       wrappedTokenEntity.decimals = token ? token.decimals : 0
       wrappedTokenEntity.token = tokenWrapperEntity.token
+      wrappedTokenEntity.totalSupply = BigInt.fromI32(0)
       wrappedTokenEntity.tokenWrapper = tokenWrapperId
 
       wrappedTokenEntity.save()
@@ -79,10 +80,14 @@ export function handleDeposit(event: DepositEvent): void {
     tokenHolder.address = event.params.entity
     tokenHolder.token = event.address.toHexString()
     tokenHolder.balance = BigInt.fromI32(0)
-    tokenHolder.tokenWrapper = event.address.toHexString()
   }
 
   tokenHolder.balance = tokenHolder.balance.plus(event.params.amount)
+
+  const wrappedToken = WrappedTokenEntity.load(event.address.toHexString())
+  wrappedToken.totalSupply = wrappedToken.totalSupply.plus(event.params.amount)
+
+  wrappedToken.save()
 
   tokenHolder.save()
 }
@@ -99,7 +104,6 @@ export function handleWithdrawal(event: WithdrawalEvent): void {
     tokenHolder.address = event.params.entity
     tokenHolder.token = event.address.toHexString()
     tokenHolder.balance = BigInt.fromI32(0)
-    tokenHolder.tokenWrapper = event.address.toHexString()
   }
   tokenHolder.balance = tokenHolder.balance.minus(event.params.amount)
 
@@ -108,4 +112,9 @@ export function handleWithdrawal(event: WithdrawalEvent): void {
   } else {
     tokenHolder.save()
   }
+
+  const wrappedToken = WrappedTokenEntity.load(event.address.toHexString())
+  wrappedToken.totalSupply = wrappedToken.totalSupply.minus(event.params.amount)
+
+  wrappedToken.save()
 }

@@ -16,6 +16,7 @@ type WrappedToken @entity {
   name: String!
   symbol: String!
   decimals: Int!
+  totalSupply: BigInt!
   token: Token
   tokenWrapper: TokenWrapper!
 }

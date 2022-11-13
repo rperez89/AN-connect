@@ -46,8 +46,8 @@ export default class TokenWrapper {
     return this.#connector.ERC20(data.token)
   }
 
-  async wrappedToken(wrappedTokenId: string): Promise<WrappedToken> {
-    return this.#connector.wrappedToken(wrappedTokenId)
+  async wrappedToken(): Promise<WrappedToken> {
+    return this.#connector.wrappedToken(this.address)
   }
 
   async tokenHolder(tokenHolder: string): Promise<TokenHolder> {

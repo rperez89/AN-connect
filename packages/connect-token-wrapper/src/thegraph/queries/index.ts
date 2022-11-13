@@ -7,7 +7,7 @@ export const GET_TOKEN_WRAPPER = (type: string) => gql`
       token {
         id      
       }
-      orAddress
+      orgAddress
     }
   }
 `
@@ -56,13 +56,14 @@ export const GET_WRAPPED_TOKEN = (type: string) => gql`
       tokenWrapper {
         id
       }
+      totalSupply
     }
   }
 `
 
 export const GET_ERC20 = (type: string) => gql`
   ${type} ERC20($tokenAddress: String!) {
-    erc20(id: $tokenAddress) {
+    token(id: $tokenAddress) {
       id
       name
       symbol
