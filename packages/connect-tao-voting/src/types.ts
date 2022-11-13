@@ -1,7 +1,4 @@
-import {
-  SubscriptionCallback,
-  SubscriptionHandler,
-} from '@1hive/connect-types'
+import { SubscriptionCallback, SubscriptionHandler } from '@1hive/connect-types'
 
 import ERC20 from './models/ERC20'
 import Vote from './models/Vote'
@@ -79,7 +76,6 @@ export interface SettingData {
   executionDelay: string
   createdAt: string
 }
-
 
 export interface ERC20Data {
   id: string

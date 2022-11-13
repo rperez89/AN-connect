@@ -2,9 +2,7 @@ import { QueryResult } from '@1hive/connect-thegraph'
 
 import { TaoVotingData } from '../../types'
 
-export function parseDisputableVoting(
-  result: QueryResult
-): TaoVotingData {
+export function parseDisputableVoting(result: QueryResult): TaoVotingData {
   const disputableVoting = result.data.disputableVoting
 
   if (!disputableVoting) {

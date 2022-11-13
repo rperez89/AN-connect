@@ -20,18 +20,20 @@ export default createAppConnector<DisputableVoting, Config>(
     const subgraphUrl =
       config.subgraphUrl ?? subgraphUrlFromChainId(network.chainId) ?? undefined
 
-
     let pollInterval
     if (orgConnector.name === 'thegraph') {
       pollInterval =
         config?.pollInterval ?? orgConnector.config?.pollInterval ?? undefined
     }
 
-    const connectorTheGraph = new DisputableVotingConnectorTheGraph({
-      pollInterval,
-      subgraphUrl,
-      verbose,
-    }, app.provider)
+    const connectorTheGraph = new DisputableVotingConnectorTheGraph(
+      {
+        pollInterval,
+        subgraphUrl,
+        verbose,
+      },
+      app.provider
+    )
 
     return new DisputableVoting(connectorTheGraph, app)
   }

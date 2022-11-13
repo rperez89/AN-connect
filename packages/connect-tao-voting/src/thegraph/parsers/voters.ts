@@ -16,7 +16,7 @@ export function parseVoter(result: QueryResult, connector: any): Voter {
       address: voter.address,
       representative: voter.representative,
       votingId: voter.voting.id,
-      representativeFor: voter.representativeFor
+      representativeFor: voter.representativeFor,
     },
     connector
   )

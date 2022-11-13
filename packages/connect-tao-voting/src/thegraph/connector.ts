@@ -41,11 +41,16 @@ type DisputableVotingConnectorTheGraphConfig = {
   verbose?: boolean
 }
 
-export default class DisputableVotingConnectorTheGraph implements IDisputableVotingConnector {
+export default class DisputableVotingConnectorTheGraph
+  implements IDisputableVotingConnector
+{
   #gql: GraphQLWrapper
   #ethersProvider: ethersProviders.Provider
 
-  constructor(config: DisputableVotingConnectorTheGraphConfig, provider: ethersProviders.Provider) {
+  constructor(
+    config: DisputableVotingConnectorTheGraphConfig,
+    provider: ethersProviders.Provider
+  ) {
     if (!config.subgraphUrl) {
       throw new Error(
         'DisputableVotingConnectorTheGraph requires subgraphUrl to be passed.'
@@ -64,9 +69,7 @@ export default class DisputableVotingConnectorTheGraph implements IDisputableVot
     this.#gql.close()
   }
 
-  async disputableVoting(
-    disputableVoting: string
-  ): Promise<TaoVotingData> {
+  async disputableVoting(disputableVoting: string): Promise<TaoVotingData> {
     return this.#gql.performQueryWithParser<TaoVotingData>(
       queries.GET_DISPUTABLE_VOTING('query'),
       { disputableVoting },

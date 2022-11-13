@@ -1,6 +1,10 @@
 import { utils } from 'ethers'
 import { subscription, App, ForwardingPath } from '@1hive/connect-core'
-import { Address, SubscriptionCallback, SubscriptionResult } from '@1hive/connect-types'
+import {
+  Address,
+  SubscriptionCallback,
+  SubscriptionResult,
+} from '@1hive/connect-types'
 
 import ERC20 from './ERC20'
 import Vote from './Vote'
@@ -130,17 +134,37 @@ export default class DisputableVoting {
     )
   }
 
-  async newVote(script: string, context: string, signerAddress: string): Promise<ForwardingPath> {
-    const intent = await this.#app.intent('newVote', [script, utils.toUtf8Bytes(context)], { actAs: signerAddress })
+  async newVote(
+    script: string,
+    context: string,
+    signerAddress: string
+  ): Promise<ForwardingPath> {
+    const intent = await this.#app.intent(
+      'newVote',
+      [script, utils.toUtf8Bytes(context)],
+      { actAs: signerAddress }
+    )
 
     return intent
   }
 
-  async castVote(voteNumber: string, supports: boolean, signerAddress: string): Promise<ForwardingPath> {
-    return this.#app.intent('vote', [voteNumber, supports], { actAs: signerAddress })
+  async castVote(
+    voteNumber: string,
+    supports: boolean,
+    signerAddress: string
+  ): Promise<ForwardingPath> {
+    return this.#app.intent('vote', [voteNumber, supports], {
+      actAs: signerAddress,
+    })
   }
 
-  async executeVote(voteNumber: string, script: string, signerAddress: string): Promise<ForwardingPath> {
-    return this.#app.intent('executeVote', [voteNumber, script], { actAs: signerAddress })
+  async executeVote(
+    voteNumber: string,
+    script: string,
+    signerAddress: string
+  ): Promise<ForwardingPath> {
+    return this.#app.intent('executeVote', [voteNumber, script], {
+      actAs: signerAddress,
+    })
   }
 }

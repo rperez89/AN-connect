@@ -23,7 +23,7 @@ function buildVote(vote: any, connector: any, provider: any): Vote {
     script,
     executedAt,
     isAccepted,
-    castVotes
+    castVotes,
   } = vote
 
   const voteData: VoteData = {
@@ -55,13 +55,17 @@ function buildVote(vote: any, connector: any, provider: any): Vote {
     quietEndingExtension: setting.quietEndingExtension,
     quietEndingPeriod: setting.quietEndingPeriod,
     executionDelay: setting.executionDelay,
-    castVotes
+    castVotes,
   }
 
   return new Vote(voteData, connector, provider)
 }
 
-export function parseVote(result: QueryResult, connector: any, provider: any): Vote {
+export function parseVote(
+  result: QueryResult,
+  connector: any,
+  provider: any
+): Vote {
   const vote = result.data.vote
 
   if (!vote) {
@@ -71,7 +75,11 @@ export function parseVote(result: QueryResult, connector: any, provider: any): V
   return buildVote(vote, connector, provider)
 }
 
-export function parseVotes(result: QueryResult, connector: any, provider: any): Vote[] {
+export function parseVotes(
+  result: QueryResult,
+  connector: any,
+  provider: any
+): Vote[] {
   const votes = result.data.votes
 
   if (!votes) {

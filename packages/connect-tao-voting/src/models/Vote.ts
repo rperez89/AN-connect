@@ -1,11 +1,15 @@
 import { subscription } from '@1hive/connect-core'
 import { BigNumber, providers as ethersProviders } from 'ethers'
-import { Address, SubscriptionCallback, SubscriptionResult } from '@1hive/connect-types'
+import {
+  Address,
+  SubscriptionCallback,
+  SubscriptionResult,
+} from '@1hive/connect-types'
 
 import ERC20 from './ERC20'
 import Setting from './Setting'
 import CastVote from './CastVote'
-import { CastVoteData,IDisputableVotingConnector, VoteData } from '../types'
+import { CastVoteData, IDisputableVotingConnector, VoteData } from '../types'
 import {
   bn,
   formatBn,
@@ -48,7 +52,11 @@ export default class Vote {
   readonly executionDelay: string
   readonly casts?: CastVoteData[]
 
-  constructor(data: VoteData, connector: IDisputableVotingConnector, ethersProvider: ethersProviders.Provider) {
+  constructor(
+    data: VoteData,
+    connector: IDisputableVotingConnector,
+    ethersProvider: ethersProviders.Provider
+  ) {
     this.#ethersProvider = ethersProvider
     this.#connector = connector
 
@@ -90,7 +98,9 @@ export default class Vote {
 
   get endDate(): string {
     const baseVoteEndDate = bn(this.startDate).add(bn(this.duration))
-    const lastComputedEndDate = baseVoteEndDate.add(bn(this.quietEndingExtensionDuration))
+    const lastComputedEndDate = baseVoteEndDate.add(
+      bn(this.quietEndingExtensionDuration)
+    )
 
     // The last computed end date is correct if we have not passed it yet or if no flip was detected in the last extension
     const currentTimestamp = currentTimestampEvm()
@@ -105,7 +115,6 @@ export default class Vote {
   get currentQuietEndingExtensionDuration(): string {
     const actualEndDate = bn(this.endDate)
     const baseVoteEndDate = bn(this.startDate).add(bn(this.duration))
-    
 
     // To know exactly how many extensions due to quiet ending we had, we subtract
     // the base vote and pause durations to the actual vote end date
@@ -144,7 +153,7 @@ export default class Vote {
     if (this.hasEnded) {
       if (this.voteStatus === 'Scheduled') {
         return this.isAccepted ? 'Accepted' : 'Rejected'
-      } 
+      }
     }
     return this.voteStatus
   }
@@ -152,13 +161,16 @@ export default class Vote {
   get wasFlipped(): boolean {
     // If there was no snapshot taken, it means no one voted during the quiet ending period. Thus, it cannot have been flipped.
     if (this.quietEndingSnapshotSupport == 'Absent') {
-      return false;
+      return false
     }
 
     // Otherwise, we calculate if the vote was flipped by comparing its current acceptance state to its last state at the start of the extension period
     const wasInitiallyAccepted = this.quietEndingSnapshotSupport == 'Yea'
-    const currentExtensions = bn(this.quietEndingExtensionDuration).div(bn(this.quietEndingExtension))
-    const wasAcceptedBeforeLastFlip = wasInitiallyAccepted == (currentExtensions.mod(bn('2')).eq(bn('0')))
+    const currentExtensions = bn(this.quietEndingExtensionDuration).div(
+      bn(this.quietEndingExtension)
+    )
+    const wasAcceptedBeforeLastFlip =
+      wasInitiallyAccepted == currentExtensions.mod(bn('2')).eq(bn('0'))
     return wasAcceptedBeforeLastFlip != this.isAccepted
   }
 
@@ -170,16 +182,20 @@ export default class Vote {
   }
 
   async canVote(voterAddress: Address): Promise<boolean> {
-    return !this.hasEnded &&
+    return (
+      !this.hasEnded &&
       this.voteStatus === 'Scheduled' &&
       !(await this.hasVoted(voterAddress)) &&
       (await this.votingPower(voterAddress)).gt(bn(0))
+    )
   }
 
   async canExecute(): Promise<boolean> {
-    return this.isAccepted &&
+    return (
+      this.isAccepted &&
       this.voteStatus === 'Scheduled' &&
       (await this.hasEndedExecutionDelay())
+    )
   }
 
   async votingPower(voterAddress: Address): Promise<BigNumber> {
@@ -208,9 +224,10 @@ export default class Vote {
   ): SubscriptionResult<any> {
     return subscription<any>(
       (error: Error | null, castVote: any) => {
-        callback?.(error, error ? undefined : (castVote !== null) as boolean)
+        callback?.(error, error ? undefined : ((castVote !== null) as boolean))
       },
-      (callback) => this.#connector.onCastVote(this.castVoteId(voterAddress), callback)
+      (callback) =>
+        this.#connector.onCastVote(this.castVoteId(voterAddress), callback)
     )
   }
 

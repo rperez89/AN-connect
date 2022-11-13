@@ -1,6 +1,12 @@
 import { bn } from '../../helpers'
 import { buildDisputableVoting, VOTING_APP_ADDRESS } from '../utils'
-import { ERC20, Vote, CastVote, DisputableVoting, CollateralRequirement } from '../../../src'
+import {
+  ERC20,
+  Vote,
+  CastVote,
+  DisputableVoting,
+  CollateralRequirement,
+} from '../../../src'
 
 describe('DisputableVoting', () => {
   let voting: DisputableVoting
@@ -24,10 +30,11 @@ describe('DisputableVoting', () => {
     describe('when it was not flipped', () => {
       test('computes the end date properly', async () => {
         const expectedScheduledVoteEndDate =
-          parseInt(scheduledVote.startDate) +
-          parseInt(scheduledVote.duration)
+          parseInt(scheduledVote.startDate) + parseInt(scheduledVote.duration)
 
-        expect(scheduledVote.endDate).toBe(expectedScheduledVoteEndDate.toString())
+        expect(scheduledVote.endDate).toBe(
+          expectedScheduledVoteEndDate.toString()
+        )
         expect(scheduledVote.currentQuietEndingExtensionDuration).toBe('0')
 
         const expectedSettledVoteEndDate =
@@ -52,8 +59,12 @@ describe('DisputableVoting', () => {
           parseInt(scheduledVote.duration) +
           parseInt(scheduledVote.quietEndingExtension)
 
-        expect(scheduledVote.endDate).toBe(expectedScheduledVoteEndDate.toString())
-        expect(scheduledVote.currentQuietEndingExtensionDuration).toBe(scheduledVote.quietEndingExtension)
+        expect(scheduledVote.endDate).toBe(
+          expectedScheduledVoteEndDate.toString()
+        )
+        expect(scheduledVote.currentQuietEndingExtensionDuration).toBe(
+          scheduledVote.quietEndingExtension
+        )
 
         const expectedSettledVoteEndDate =
           parseInt(settledVote.startDate) +
@@ -62,7 +73,9 @@ describe('DisputableVoting', () => {
           parseInt(settledVote.quietEndingExtension)
 
         expect(settledVote.endDate).toBe(expectedSettledVoteEndDate.toString())
-        expect(settledVote.currentQuietEndingExtensionDuration).toBe(settledVote.quietEndingExtension)
+        expect(settledVote.currentQuietEndingExtensionDuration).toBe(
+          settledVote.quietEndingExtension
+        )
       })
     })
   })
@@ -90,7 +103,9 @@ describe('DisputableVoting', () => {
         expect(vote.formattedNaysPct).toBe('0.00')
 
         expect(await vote.canExecute()).toBe(false)
-        expect(await vote.canVote('0x03acbcb547d03c8e7746ef5988012b59604aa083')).toBe(false)
+        expect(
+          await vote.canVote('0x03acbcb547d03c8e7746ef5988012b59604aa083')
+        ).toBe(false)
       })
     })
 
@@ -116,7 +131,9 @@ describe('DisputableVoting', () => {
         expect(vote.formattedNaysPct).toBe('0.00')
 
         expect(await vote.canExecute()).toBe(false)
-        expect(await vote.canVote('0x03acbcb547d03c8e7746ef5988012b59604aa083')).toBe(false)
+        expect(
+          await vote.canVote('0x03acbcb547d03c8e7746ef5988012b59604aa083')
+        ).toBe(false)
       })
     })
   })
@@ -198,8 +215,12 @@ describe('DisputableVoting', () => {
     })
 
     test('has a collateral requirement associated', async () => {
-      expect(collateralRequirement.id).toBe(`${VOTING_APP_ADDRESS}-collateral-${collateralRequirement.collateralRequirementId}`)
-      expect(collateralRequirement.tokenId).toBe('0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42')
+      expect(collateralRequirement.id).toBe(
+        `${VOTING_APP_ADDRESS}-collateral-${collateralRequirement.collateralRequirementId}`
+      )
+      expect(collateralRequirement.tokenId).toBe(
+        '0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42'
+      )
       expect(collateralRequirement.actionAmount).toBe('0')
       expect(collateralRequirement.challengeAmount).toBe('0')
       expect(collateralRequirement.challengeDuration).toBe('259200')
@@ -229,7 +250,9 @@ describe('DisputableVoting', () => {
       const arbitratorFee = (await vote.submitterArbitratorFee())!
 
       expect(arbitratorFee.id).toBe(`${voteId}-submitter`)
-      expect(arbitratorFee.tokenId).toBe('0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42')
+      expect(arbitratorFee.tokenId).toBe(
+        '0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42'
+      )
       expect(arbitratorFee.formattedAmount).toBe('150.00')
     })
 
@@ -237,7 +260,9 @@ describe('DisputableVoting', () => {
       const arbitratorFee = (await vote.challengerArbitratorFee())!
 
       expect(arbitratorFee.id).toBe(`${voteId}-challenger`)
-      expect(arbitratorFee.tokenId).toBe('0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42')
+      expect(arbitratorFee.tokenId).toBe(
+        '0x3af6b2f907f0c55f279e0ed65751984e6cdc4a42'
+      )
       expect(arbitratorFee.formattedAmount).toBe('150.00')
     })
   })

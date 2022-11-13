@@ -44,8 +44,12 @@ describe('DisputableVoting votes', () => {
       expect(castVotes.length).toBeGreaterThan(0)
 
       const firstCastVote = castVotes[0]
-      expect(firstCastVote.id).toBe(`${VOTING_APP_ADDRESS}-vote-0-cast-0x0090aed150056316e37fe6dfa10dc63e79d173b6`)
-      expect(firstCastVote.caster).toBe('0x0090aed150056316e37fe6dfa10dc63e79d173b6')
+      expect(firstCastVote.id).toBe(
+        `${VOTING_APP_ADDRESS}-vote-0-cast-0x0090aed150056316e37fe6dfa10dc63e79d173b6`
+      )
+      expect(firstCastVote.caster).toBe(
+        '0x0090aed150056316e37fe6dfa10dc63e79d173b6'
+      )
       expect(firstCastVote.createdAt).toEqual('1598530298')
       expect(firstCastVote.stake).toBe('1000000000000000000')
       expect(firstCastVote.supports).toBe(true)
