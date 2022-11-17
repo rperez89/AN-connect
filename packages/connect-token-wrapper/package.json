@@ -1,6 +1,6 @@
 {
   "name": "@rperez89/connect-token-wrapper",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "license": "LGPL-3.0-or-later",
   "description": "Access and interact with Aragon Organizations and their apps.",
   "author": "Aragon Association <legal@aragon.org>",
